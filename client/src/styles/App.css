@@ -1,0 +1,22 @@
+.main-container{
+  background-color: rgb(40, 39, 39);
+}
+
+.header{
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* TODO-CONTAINER */
+
+.todo-container{
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  background-color: black;
+}
+
+.todo-list-container{
+  width: 30%;
+  background-color: silver;
+}
