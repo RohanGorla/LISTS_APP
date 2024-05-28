@@ -1,9 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
+import axios from "axios";
 import "./styles/App.css";
 
 function App() {
+  const [lists, setLists] = useState([]);
+  const [tods, steTodos] = useState([]);
+  const [currentList, setCurrentList] = useState("");
+
+  useEffect(() => {
+    async function getData() {
+      await axios
+        .get(`${import.meta.env.VITE_BASE_URL}/`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    getData();
+  }, []);
+
   return (
     <>
       <div className="main-container">
