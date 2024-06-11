@@ -10,6 +10,7 @@ function App() {
   const [todoInput, setTodoInput] = useState("");
   const [listInput, setListInput] = useState("");
   const [currentList, setCurrentList] = useState("");
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     getLists();
@@ -56,7 +57,7 @@ function App() {
       .then((response) => {
         getLists();
         if (currentList == listname) {
-          selectList('');
+          selectList("");
         }
       })
       .catch((err) => {
@@ -121,129 +122,206 @@ function App() {
 
   return (
     <>
-      <div className="main-container">
-        <div className="header">
-          <h1>THIS IS MY TODO LIST</h1>
+      <div className={show ? "lists-mobile" : "lists-mobile not-visible"}>
+        <div
+          className="close-button"
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
+          <span className="cross"></span>
+          <span className="cross2"></span>
         </div>
-        <div className="todo-container">
-          <div className="todo-list-container">
-            <div className="list-header">
-              <h2>MY TODO-LISTS</h2>
-            </div>
-            <div className="list-input">
-              <input
-                id="list-name"
-                placeholder="LIST NAME..."
-                onChange={(e) => {
-                  setListInput(e.target.value);
-                }}
-                value={listInput}
-              ></input>
-              <button
+        <div className="add_list-mobile">
+          <div className="add_list-input-mobile">
+            <input
+              type="text"
+              placeholder="Enter new list..."
+              onChange={(e) => {
+                setListInput(e.target.value);
+              }}
+              value={listInput}
+            ></input>
+          </div>
+          <div
+            className="add_list-button-mobile"
+            onClick={() => {
+              addList();
+            }}
+          >
+            <span>ADD</span>
+          </div>
+        </div>
+        <h2 className="lists-mobile-title">MY TODO LISTS</h2>
+        <div className="show_lists-mobile">
+          {lists.map((list) => {
+            return (
+              <div className="list_card">
+                <h3 className="list_name-mobile">{list.listname}</h3>
+                <div className="list_options-mobile">
+                  <div
+                    className="select_list-mobile"
+                    onClick={() => {
+                      selectList(list.listname);
+                    }}
+                  >
+                    <span>Select</span>
+                  </div>
+                  <div
+                    className="delete_list-mobile"
+                    onClick={() => {
+                      deleteList(list.listname);
+                    }}
+                  >
+                    <span>Delete</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <nav>
+        <div className="container">
+          <div
+            className="list-toggle"
+            onClick={() => {
+              setShow(!show);
+            }}
+          >
+            <span className="hamburger"></span>
+          </div>
+          <div className="logo">
+            <h1 className="nav-title">TODO-LISTS</h1>
+          </div>
+        </div>
+      </nav>
+
+      <header>
+        <div className="container">
+          <h2 className="header-title">THIS IS MY TODO LIST</h2>
+        </div>
+      </header>
+
+      <div className="main">
+        <div className="container main_row">
+          <div className="lists section">
+            <div className="add_list">
+              <div className="add_list-input">
+                <input
+                  type="text"
+                  placeholder="Enter new list..."
+                  onChange={(e) => {
+                    setListInput(e.target.value);
+                  }}
+                  value={listInput}
+                ></input>
+              </div>
+              <div
+                className="add_list-button"
                 onClick={() => {
                   addList();
                 }}
               >
-                ADD
-              </button>
+                <span>ADD</span>
+              </div>
             </div>
-            <div className="todo-lists">
+            <h2 className="lists-title">MY TODO LISTS</h2>
+            <div className="show_lists">
               {lists.map((list) => {
                 return (
-                  <div className="list-card" key={list.id}>
-                    <h3 className="list-name">{list.listname}</h3>
-                    <div className="list-options">
-                      <button
-                        className="select-list"
+                  <div className="list_card" key={list.id}>
+                    <h3 className="list_name">{list.listname}</h3>
+                    <div className="list_options">
+                      <div
+                        className="select_list"
                         onClick={() => {
                           selectList(list.listname);
                         }}
                       >
-                        Select
-                      </button>
-                      <button
-                        className="delete-list"
+                        <span>Select</span>
+                      </div>
+                      <div
+                        className="delete_list"
                         onClick={() => {
                           deleteList(list.listname);
                         }}
                       >
-                        DELETE
-                      </button>
+                        <span>Delete</span>
+                      </div>
                     </div>
                   </div>
                 );
               })}
             </div>
           </div>
-          <div className="todos-container">
-            <div className="todos-header">
-              <h2>{currentList}</h2>
-              {/* <div className="count">
-                <p>1 todo left</p>
-              </div> */}
+
+          <div className="todos section">
+            <div className="todos_header">
+              <h2 className="current_list">{currentList}</h2>
+              <p className="todos_count">Todos left: 0</p>
             </div>
-            <div className="todos-input">
-              {/* <div className="todos-title">
-                <label>Title</label>
-                <input></input>
-              </div> */}
-              <div className="todos-content">
-                {/* <label>Content</label> */}
+            <div className="add_todo">
+              <div className="add_todo-input">
                 <input
-                  placeholder="New todo item..."
+                  type="text"
+                  placeholder="Enter new todo..."
                   onChange={(e) => {
                     setTodoInput(e.target.value);
                   }}
                   value={todoInput}
                 ></input>
-                <button
-                  onClick={() => {
-                    addTodo();
-                  }}
-                >
-                  ADD
-                </button>
+              </div>
+              <div
+                className="add_todo-button"
+                onClick={() => {
+                  addTodo();
+                }}
+              >
+                <span>ADD</span>
               </div>
             </div>
-            <div className="todos">
+            <div className="show_todos">
               {todos.map((todo) => {
                 return (
-                  <div className="todo-card" key={todo.id}>
-                    {/* <h3 className="todo-title">THIS IS A TODO</h3> */}
-                    <div className="todo-info">
-                      <p className={todo.done == "yes" ? "todo done" : "todo"}>
-                        {todo.todo}
-                      </p>
-                      <button
-                        className="btn-done"
-                        onClick={() => {
-                          setDone(todo.id, todo.done);
-                        }}
-                      >
-                        DONE
-                      </button>
+                  <div className="todo_card" key={todo.id}>
+                    <p
+                      className={
+                        todo.done == "yes" ? "todo_info done" : "todo_info"
+                      }
+                    >
+                      {todo.todo}
+                    </p>
+                    <div
+                      className="todo_done-button"
+                      onClick={() => {
+                        setDone(todo.id, todo.done);
+                      }}
+                    >
+                      <span>DONE</span>
                     </div>
                   </div>
                 );
               })}
             </div>
-            <div className="todos-options">
-              <button
-                className="remove-finished"
+            <div className="todos_options">
+              <div
+                className="remove_finished-button"
                 onClick={() => {
                   deleteDone(currentList);
                 }}
               >
-                REMOVE FINISHED TODOS
-              </button>
-              <button
-                className="remove-all"
+                <span>REMOVE FINISHED TODOS</span>
+              </div>
+              <div
+                className="remove_all-button"
                 onClick={() => {
                   deleteAll(currentList);
                 }}
               >
-                REMOVE ALL TODOS
-              </button>
+                <span>REMOVE ALL TODOS</span>
+              </div>
             </div>
           </div>
         </div>

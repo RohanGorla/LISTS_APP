@@ -53,8 +53,8 @@ app.delete("/deletelist", (req, res) => {
 });
 
 app.post("/addtodo", (req, res) => {
-  let values = [[req.body.listname, req.body.todo]];
-  db.query("insert into todos (listname, todo) values ?", [values]);
+  let values = [[req.body.listname, req.body.todo, 'no']];
+  db.query("insert into todos (listname, todo, done) values ?", [values]);
   res.send("added");
 });
 

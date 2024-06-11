@@ -1,210 +1,420 @@
-.main-container{
-  background-color: rgb(40, 39, 39);
+*, *::after, *::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-.header{
-  font-size: 2rem;
-  text-align: center;
+:root {
+    --app_name_font-size: 25px;
+    --main_title_font-size: 30px;
+    --button_font-size: 15px;
+    --todo_font-size: 12px;
+    --list_name_font-size: 16px;
+    --current_list_font-size: 19px;
 }
 
-/* TODO-CONTAINER */
-
-.todo-container{
-  max-width: 1200px;
-  margin: auto;
-  display: flex;
-  background-color: black;
-}
-
-/* TODO-LIST-CONTAINER */
-
-.todo-list-container{
-  background-color: silver;
-  width: 40%;
-}
-
-.list-header h2{
-  text-align: center;
-  font-size: 40px;
-  margin: 10px 0px;
-}
-
-.list-input{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.list-input input{
-  border-radius: 7px;
-  padding: 14px 50px 2px 5px;
-  margin-right: 7px;
-  font-size: 0.9em;
-}
-
-.list-input button{
-  border-radius: 6px;
-  padding: 8px 8px;
-}
-
-.todo-lists{
-  max-height:70vh;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    width: 10px;
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: transparent;
-  }
-}
-
-.todo-lists:hover{
-  &::-webkit-scrollbar-thumb {
-      background-color: black;
-    }
-}
-
-.list-card{
-  margin: 17px 0px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.list-name{
-  font-size: 1.3em;
-}
-
-.list-options{
-  margin-left: 10px;
-}
-
-.select-list{
-  padding: 5px 8px;
-  margin-right: 10px;
-  border-radius: 6px;
-}
-
-.delete-list{
-  padding: 5px 8px;
-  border-radius: 6px;
-}
-
-/* TODOS-CONTAINER */
-
-.todos-container{
-  background-color: burlywood;
-  width: 60%;
-  padding-left: 35px;
-}
-
-.todos-header h2{
-  text-align: center;
-  font-size: 40px;
-  margin: 10px 0px;
-}
-
-.count{
-  display: flex;
-  justify-content: end;
-}
-
-.todos-input{
-  display: flex;
-  justify-content: center;
-}
-
-/* .todos-title{
-  display: flex;
-  align-items: center;
-}
-
-.todos-title input{
-  border-radius: 7px;
-  padding: 14px 50px 2px 5px;
-  margin-right: 7px;
-  font-size: 0.9em;
-} */
-
-.todos-content{
-  display: flex;
-  align-items: center;
-}
-
-.todos-content input{
-  border-radius: 7px;
-  padding: 14px 50px 2px 5px;
-  margin-right: 7px;
-  font-size: 0.9em;
-}
-
-.todos-content button{
-  border-radius: 6px;
-  padding: 8px 8px;
-}
-
-.todos{
-  margin-top: 25px;
-  max-height: 70vh;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    width: 10px;
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: transparent;
-  }
-}
-
-.todos:hover{
-  &::-webkit-scrollbar-thumb {
+body {
     background-color: black;
-  }
+    color: white;
 }
 
-.todo-card{
-  margin: 10px 0px;
+.container {
+    position: relative;
+    width: 85%;
+    margin: 0 auto;
 }
 
-.todo-info{
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+.not-visible {
+    visibility: hidden;
+    width: 0;
 }
 
-/* .todo{
+/* LISTS MOBILE */
 
-} */
+.lists-mobile {
+    background-color: brown;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 300px;
+    min-height: 100vh;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 3em;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.cross {
+    position: absolute;
+    top: 17px;
+    left: 9px;
+    display: block;
+    width: 50%;
+    height: 2px;
+    transform: rotate(45deg);
+    background-color: red;
+}
+
+.cross2 {
+    position: absolute;
+    top: 17px;
+    left: 9px;
+    display: block;
+    width: 50%;
+    height: 2px;
+    transform: rotate(315deg);
+    background-color: red;
+}
+
+.add_list-mobile,
+.show_lists-mobile {
+    padding: .5em 0;
+}
+
+.add_list-mobile {
+    margin-bottom: 1em;
+}
+
+.add_list-input-mobile {
+    margin: 1em 0;
+    padding-left: 2.5em;
+}
+
+.add_list-input-mobile input{
+    padding: 1em 4em .5em .5em;
+    border-radius: 7px;
+    border-style: none;
+}
+
+.add_list-button-mobile {
+    display: flex;
+    justify-content: center;
+}
+
+.add_list-button-mobile span{
+    background-color: black;
+    font-size: var(--button_font-size);
+    font-weight: 600;
+    border-radius: 5px;
+    border-style:  none;
+    padding: .5em;
+
+}
+
+.lists-mobile-title {
+    text-align: center;
+    font-size: var(--app_name_font-size);
+}
+
+.show_lists-mobile {
+    margin: 1em 0;
+}
+
+.list_card {
+    margin-bottom: 1.5em;
+}
+
+.list_name-mobile {
+    text-align: center;
+    font-size: var(--list_name_font-size);
+    margin-bottom: 0.7em;
+}
+
+.list_options-mobile {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.select_list-mobile span,
+.delete_list-mobile span {
+    background-color: black;
+    border-radius: 5px;
+    border-style:  none;
+    font-size: var(--button_font-size);
+    padding: .5em;
+}
+
+/* NAV */
+
+nav {
+    background-color: red;
+    padding: 2em 0;
+}
+
+.list-toggle {
+    width: 35px;
+    height: 35px;
+    background-color: white;
+    position: absolute;
+    top: 0px;
+    left: 5px;
+    border-radius: 50%;
+}
+
+.hamburger {
+    display: block;
+    width: 50%;
+    height: 3px;
+    margin: 17px auto;
+    background-color: red;
+}
+
+.hamburger::before {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: red;
+    transform: translateY(-6px);
+}
+
+.hamburger::after {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: red;
+    transform: translateY(3px);
+}
+
+.nav-title {
+    text-align: center;
+    font-size: var(--app_name_font-size);
+}
+
+/* HEADER */
+
+.header-title {
+    text-align: center;
+    margin-top: 1em;
+    font-size: var(--main_title_font-size);
+}
+
+/* LISTS SECTION */
+
+.lists {
+    display: none;
+}
+
+/* TODOS SECTION */
+
+.todos_header {
+    padding: 1em 0;
+}
+
+.current_list {
+    text-align: center;
+    font-size: var(--current_list_font-size);
+    margin-bottom: .3em;
+}
+
+.todos_count {
+    text-align: center;
+    font-size: var(--todo_font-size);
+}
+
+.add_todo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.add_todo-input input {
+    padding: 1em 4em .5em .5em;
+    border-radius: 7px;
+    border-style: none;
+}
+
+.add_todo-button span {
+    background-color: white;
+    color: black;
+    font-size: var(--button_font-size);
+    border-radius: 5px;
+    border-style:  none;
+    padding: .5em;
+}
+
+.show_todos {
+    margin-top: 1em;
+    padding: 1em 0;
+}
+
+.todo_card {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    margin-top: 0.7em;
+    padding: 0.5em 0;
+}
+
+.todo_info {
+    width: 70%;
+    font-size: var(--todo_font-size);
+}
 
 .done{
-  text-decoration: line-through;
+    text-decoration: line-through;
 }
 
-.btn-done{
-  border-radius: 6px;
-  padding: 8px 8px;
+.todo_done-button {
+    width: 30%;
 }
 
-/* TODOS-OPTIONS */
-
-.todos-options{
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
+.todo_done-button span {
+    background-color: white;
+    color: black;
+    text-align: center;
+    font-size: var(--button_font-size);
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 5px;
+    border-style:  none;
+    padding: .5em;
 }
 
-.todos-options button{
-  border-radius: 6px;
-  padding: 8px 8px;
+.todos_options {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.remove-finished{
-  margin-right: 15px;
+.remove_finished-button {
+    margin-bottom: 2em;
+}
+
+.remove_finished-button span,
+.remove_all-button span {
+    background-color: white;
+    color: black;
+    font-size: var(--button_font-size);
+    border-radius: 5px;
+    border-style:  none;
+    padding: .5em;
+}
+
+@media (min-width: 800px) {
+    :root {
+        --app_name_font-size: 25px;
+        --main_title_font-size: 30px;
+        --button_font-size: 15px;
+        --todo_font-size: 12px;
+        --list_name_font-size: 16px;
+        --current_list_font-size: 19px;
+    }
+
+    .container {
+        width: 80%;
+        max-width: 1200px;
+    }
+
+    .lists-mobile {
+        display: none;
+    }
+
+    .list-toggle {
+        display: none;
+    }
+
+    .main_row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .lists {
+        display: block;
+        width: 39%;
+    }
+
+    .add_list {
+        margin-bottom: 1em;
+    }
+
+    .add_list-input {
+        margin: 1em 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .add_list-input input {
+        padding: 1em 4em .5em .5em;
+        border-radius: 7px;
+        border-style: none;
+    }
+
+    .add_list-button {
+        display: flex;
+        justify-content: center;
+    }
+
+    .add_list-button span {
+        background-color: red;
+        font-size: var(--button_font-size);
+        font-weight: 600;
+        border-radius: 5px;
+        border-style:  none;
+        padding: .5em;
+    }
+
+    .lists-title {
+        text-align: center;
+        font-size: var(--app_name_font-size);
+    }
+
+    .show_lists {
+        margin: 1em 0;
+    }
+
+    .list_card {
+        margin-bottom: 1.5em;
+    }
+
+    .list_name {
+        text-align: center;
+        font-size: var(--list_name_font-size);
+        margin-bottom: 0.7em;
+    }
+
+    .list_options {
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+    }
+
+    .select_list span,
+    .delete_list span {
+        background-color: red;
+        border-radius: 5px;
+        border-style:  none;
+        font-size: var(--button_font-size);
+        padding: .5em;
+}
+
+    .todos {
+        width: 59%;
+    }
+
+    .todos_options {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1em;
+    }
+
+    .remove_finished-button {
+        margin: 0;
+    }
 }
