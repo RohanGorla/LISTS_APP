@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
 *, *::after, *::before {
     box-sizing: border-box;
     padding: 0;
@@ -5,17 +7,29 @@
 }
 
 :root {
-    --app_name_font-size: 25px;
-    --main_title_font-size: 30px;
-    --button_font-size: 15px;
-    --todo_font-size: 12px;
-    --list_name_font-size: 16px;
-    --current_list_font-size: 19px;
+    --app_name_font-size: 21px;
+    --main_title_font-size: 33px;
+    --button_font-size: 10px;
+    --button_font-weight: 600;
+    --todo_count_font-size: 12px;
+    --todo_font-size: 14px;
+    --list_name_font-size: 20px;
+    --current_list_font-size: 18px;
+    --primary_color: #FF6D4B;
+    --secondary_color: #755A94;
+    --accent_color: white;
+}
+
+html {
+    min-height: 100vh;
+    background-image: linear-gradient(to right top, #051937, #49265a, #932762, #d0394a, #eb7012);
 }
 
 body {
-    background-color: black;
-    color: white;
+    /* background-color: #548FE9; */
+    /* background-color: var(--primary_color); */
+    color: var(--accent_color);
+    font-family: "Oswald", sans-serif;
 }
 
 .container {
@@ -29,11 +43,49 @@ body {
     width: 0;
 }
 
+.btn {
+    /* background-color: var(--secondary_color); */
+    /* background-image: linear-gradient(to right top, #e16645, #ea7c3d, #ee9436, #efac32, #ebc435, #e2cf34, #d7db37, #cae63f, #b9e63b, #a6e73a, #91e73b, #79e73e); */
+    /* background-color: #D87E3A; */
+    background-image: linear-gradient(to right top, #af0b0b, #be1c0d, #cd290f, #dc3511, #eb4112);
+    color: var(--accent_color);
+    cursor: pointer;
+    font-size: var(--button_font-size);
+    font-weight: var(--button_font-weight);
+    border-radius: 4px;
+    border-style:  none;
+    padding: .45em 1.3em;
+}
+
+.background {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    background-color: black;
+    opacity: .4;
+    width: 100%;
+    height: 100%;
+}
+
+.card-background {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: .5;
+    border-radius: 10px;
+}
+
 /* LISTS MOBILE */
 
 .lists-mobile {
     background-color: brown;
-    position: absolute;
+    position: fixed;
     top: 0;
     z-index: 1;
     width: 300px;
@@ -41,6 +93,7 @@ body {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     padding-top: 3em;
+    overflow-y: scroll;
 }
 
 .close-button {
@@ -102,7 +155,6 @@ body {
 }
 
 .add_list-button-mobile span{
-    background-color: black;
     font-size: var(--button_font-size);
     font-weight: 600;
     border-radius: 5px;
@@ -148,8 +200,8 @@ body {
 /* NAV */
 
 nav {
-    background-color: red;
-    padding: 2em 0;
+    background-color: black;
+    padding: 1em 0;
 }
 
 .list-toggle {
@@ -197,7 +249,7 @@ nav {
 
 .header-title {
     text-align: center;
-    margin-top: 1em;
+    margin-bottom: .3em;
     font-size: var(--main_title_font-size);
 }
 
@@ -209,8 +261,16 @@ nav {
 
 /* TODOS SECTION */
 
+.todos {
+    padding: .7em;
+}
+
 .todos_header {
-    padding: 1em 0;
+    /* position: relative; */
+    /* padding-bottom: 1em; */
+    /* background-color: blue; */
+    width: 80%;
+    margin: 0 auto;
 }
 
 .current_list {
@@ -219,107 +279,125 @@ nav {
     margin-bottom: .3em;
 }
 
+.todos-title {
+    font-size: var(--app_name_font-size);
+}
+
 .todos_count {
+    /* position: absolute;
+    top: 10px;
+    right: 10px; */
     text-align: center;
-    font-size: var(--todo_font-size);
+    font-size: var(--todo_count_font-size);
 }
 
 .add_todo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1em;
+    margin-bottom: .3em;
+    /* gap: 1em; */
+}
+
+.add_todo-input {
+    margin: .4em 0;
 }
 
 .add_todo-input input {
-    padding: 1em 4em .5em .5em;
-    border-radius: 7px;
+    padding: .4em .5em .2em .2em;
+    border-radius: 3px;
     border-style: none;
 }
 
-.add_todo-button span {
-    background-color: white;
-    color: black;
-    font-size: var(--button_font-size);
-    border-radius: 5px;
-    border-style:  none;
-    padding: .5em;
+.add_todo-button {
+    display: flex;
+    justify-content: center;
 }
 
 .show_todos {
-    margin-top: 1em;
-    padding: 1em 0;
+    /* background-color: blue; */
+    /* margin-top: 1em;
+    padding: 1em 0; */
 }
 
 .todo_card {
+    /* background-color: black; */
+    position: relative;
     width: 80%;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    margin-top: 0.7em;
-    padding: 0.5em 0;
+    margin-top: 0.4em;
+    padding: .8em 0;
 }
 
 .todo_info {
+    /* background-color: blue; */
     width: 70%;
     font-size: var(--todo_font-size);
+    color: black;
+    padding-left: 1em;
+}
+
+.todo_info span {
+    color: white;
 }
 
 .done{
     text-decoration: line-through;
+    text-decoration-thickness: 5px;
 }
 
 .todo_done-button {
+    /* background-color: green; */
     width: 30%;
 }
 
 .todo_done-button span {
-    background-color: white;
-    color: black;
     text-align: center;
-    font-size: var(--button_font-size);
     display: block;
     width: fit-content;
     margin: 0 auto;
-    border-radius: 5px;
-    border-style:  none;
-    padding: .5em;
 }
 
 .todos_options {
-    margin-top: 1em;
+    margin: .4em;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .remove_finished-button {
-    margin-bottom: 2em;
+    margin-bottom: .3em;
 }
 
-.remove_finished-button span,
+/* .remove_finished-button span,
 .remove_all-button span {
-    background-color: white;
-    color: black;
-    font-size: var(--button_font-size);
-    border-radius: 5px;
-    border-style:  none;
-    padding: .5em;
-}
+
+} */
 
 @media (min-width: 800px) {
     :root {
-        --app_name_font-size: 25px;
-        --main_title_font-size: 30px;
-        --button_font-size: 15px;
-        --todo_font-size: 12px;
-        --list_name_font-size: 16px;
-        --current_list_font-size: 19px;
+        --app_name_font-size: 30px;
+        --main_title_font-size: 60px;
+        --button_font-size: 16px;
+        --button_font-weight: 600;
+        --todo_count_font-size: 15px;
+        --todo_font-size: 23px;
+        --list_name_font-size: 25px;
+        --current_list_font-size: 25px;
+        --primary_color: #FF6D4B;
+        --secondary_color: #755A94;
+        --accent_color: white;
     }
 
     .container {
         width: 80%;
         max-width: 1200px;
+    }
+
+    nav {
+        padding: 1em 0;
     }
 
     .lists-mobile {
@@ -337,7 +415,12 @@ nav {
 
     .lists {
         display: block;
+        position: relative;
         width: 39%;
+        height: fit-content;
+        padding: .7em;
+        /* background-color: rgb(46, 45, 45); */
+        /* opacity: .65; */
     }
 
     .add_list {
@@ -361,14 +444,9 @@ nav {
         justify-content: center;
     }
 
-    .add_list-button span {
-        background-color: red;
-        font-size: var(--button_font-size);
-        font-weight: 600;
-        border-radius: 5px;
-        border-style:  none;
-        padding: .5em;
-    }
+    /* .add_list-button span {
+
+    } */
 
     .lists-title {
         text-align: center;
@@ -380,13 +458,17 @@ nav {
     }
 
     .list_card {
-        margin-bottom: 1.5em;
+        position: relative;
+        width: 70%;
+        margin: 0 auto;
+        margin-bottom: .5em;
+        padding: .9em 0 1.5em 0;
     }
 
     .list_name {
         text-align: center;
         font-size: var(--list_name_font-size);
-        margin-bottom: 0.7em;
+        margin-bottom: 0.9em;
     }
 
     .list_options {
@@ -395,23 +477,41 @@ nav {
         gap: 1em;
     }
 
-    .select_list span,
+    /* .select_list span,
     .delete_list span {
-        background-color: red;
-        border-radius: 5px;
-        border-style:  none;
-        font-size: var(--button_font-size);
-        padding: .5em;
-}
+        
+    } */
 
     .todos {
-        width: 59%;
+        width: 60%;
+        position: relative;
+        height: fit-content;
+        /* background-color: yellow; */
     }
 
     .todos_options {
+        margin: 1.5em 0 1em 0;
+        display: flex;
         flex-direction: row;
         justify-content: center;
         gap: 1em;
+    }
+
+    .add_todo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1em;
+    }
+
+    .add_todo-input {
+        margin: 1em 0;
+    }
+
+    .add_todo-input input {
+        padding: 1em 4em .5em .5em;
+        border-radius: 7px;
+        border-style: none;
     }
 
     .remove_finished-button {

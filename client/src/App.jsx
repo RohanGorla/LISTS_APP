@@ -11,6 +11,7 @@ function App() {
   const [listInput, setListInput] = useState("");
   const [currentList, setCurrentList] = useState("");
   const [show, setShow] = useState(false);
+  const [left, setLeft] = useState(0);
 
   useEffect(() => {
     getLists();
@@ -42,6 +43,13 @@ function App() {
       .post(`${import.meta.env.VITE_BASE_URL}/getlist`, { listname: listname })
       .then((response) => {
         setTodos(response.data);
+        let left = 0;
+        response.data.forEach((todo) => {
+          if (todo.done == "no") {
+            left += 1;
+          }
+        });
+        setLeft(left);
         setCurrentList(listname);
       })
       .catch((err) => {
@@ -149,14 +157,14 @@ function App() {
               addList();
             }}
           >
-            <span>ADD</span>
+            <span className="sb-btn">ADD</span>
           </div>
         </div>
         <h2 className="lists-mobile-title">MY TODO LISTS</h2>
         <div className="show_lists-mobile">
           {lists.map((list) => {
             return (
-              <div className="list_card">
+              <div className="list_card" key={list.id}>
                 <h3 className="list_name-mobile">{list.listname}</h3>
                 <div className="list_options-mobile">
                   <div
@@ -165,7 +173,7 @@ function App() {
                       selectList(list.listname);
                     }}
                   >
-                    <span>Select</span>
+                    <span className="sb-btn">Select</span>
                   </div>
                   <div
                     className="delete_list-mobile"
@@ -173,7 +181,7 @@ function App() {
                       deleteList(list.listname);
                     }}
                   >
-                    <span>Delete</span>
+                    <span className="sb-btn">Delete</span>
                   </div>
                 </div>
               </div>
@@ -207,7 +215,9 @@ function App() {
       <div className="main">
         <div className="container main_row">
           <div className="lists section">
+            <div className="background"></div>
             <div className="add_list">
+              <h2 className="lists-title">ADD NEW LIST</h2>
               <div className="add_list-input">
                 <input
                   type="text"
@@ -224,14 +234,31 @@ function App() {
                   addList();
                 }}
               >
-                <span>ADD</span>
+                <span className="btn">ADD</span>
               </div>
             </div>
-            <h2 className="lists-title">MY TODO LISTS</h2>
-            <div className="show_lists">
+            <h2
+              className="lists-title"
+              style={lists.length ? null : { display: "none" }}
+            >
+              MY TODO LISTS
+            </h2>
+            <p
+              className="no-lists"
+              style={
+                lists.length ? { display: "none" } : { textAlign: "center" }
+              }
+            >
+              No lists to show
+            </p>
+            <div
+              className="show_lists"
+              style={lists.length ? null : { display: "none" }}
+            >
               {lists.map((list) => {
                 return (
                   <div className="list_card" key={list.id}>
+                    <div className="card-background"></div>
                     <h3 className="list_name">{list.listname}</h3>
                     <div className="list_options">
                       <div
@@ -240,7 +267,7 @@ function App() {
                           selectList(list.listname);
                         }}
                       >
-                        <span>Select</span>
+                        <span className="btn">Select</span>
                       </div>
                       <div
                         className="delete_list"
@@ -248,7 +275,7 @@ function App() {
                           deleteList(list.listname);
                         }}
                       >
-                        <span>Delete</span>
+                        <span className="btn">Delete</span>
                       </div>
                     </div>
                   </div>
@@ -258,11 +285,9 @@ function App() {
           </div>
 
           <div className="todos section">
-            <div className="todos_header">
-              <h2 className="current_list">{currentList}</h2>
-              <p className="todos_count">Todos left: 0</p>
-            </div>
+            <div className="background"></div>
             <div className="add_todo">
+              <h2 className="todos-title">ADD NEW TODO</h2>
               <div className="add_todo-input">
                 <input
                   type="text"
@@ -279,19 +304,38 @@ function App() {
                   addTodo();
                 }}
               >
-                <span>ADD</span>
+                <span className="btn">ADD</span>
               </div>
             </div>
-            <div className="show_todos">
+            <div
+              className="todos_header"
+              style={currentList ? null : { display: "none" }}
+            >
+              <h2 className="current_list">{currentList}</h2>
+              <p className="todos_count">Todos left: {left}</p>
+            </div>
+            <p
+              style={
+                todos.length ? { display: "none" } : { textAlign: "center" }
+              }
+            >
+              No todos to show
+            </p>
+            <div
+              className="show_todos"
+              style={todos.length ? null : { display: "none" }}
+            >
               {todos.map((todo) => {
                 return (
                   <div className="todo_card" key={todo.id}>
+                    <div className="card-background"></div>
                     <p
                       className={
                         todo.done == "yes" ? "todo_info done" : "todo_info"
                       }
+                      // className="todo_info"
                     >
-                      {todo.todo}
+                      <span>{todo.todo}</span>
                     </p>
                     <div
                       className="todo_done-button"
@@ -299,20 +343,25 @@ function App() {
                         setDone(todo.id, todo.done);
                       }}
                     >
-                      <span>DONE</span>
+                      <span className="btn">
+                        {todo.done == "yes" ? "UNDO" : "DONE"}
+                      </span>
                     </div>
                   </div>
                 );
               })}
             </div>
-            <div className="todos_options">
+            <div
+              className="todos_options"
+              style={todos.length ? null : { display: "none" }}
+            >
               <div
                 className="remove_finished-button"
                 onClick={() => {
                   deleteDone(currentList);
                 }}
               >
-                <span>REMOVE FINISHED TODOS</span>
+                <span className="btn">REMOVE FINISHED TODOS</span>
               </div>
               <div
                 className="remove_all-button"
@@ -320,7 +369,7 @@ function App() {
                   deleteAll(currentList);
                 }}
               >
-                <span>REMOVE ALL TODOS</span>
+                <span className="btn">REMOVE ALL TODOS</span>
               </div>
             </div>
           </div>
