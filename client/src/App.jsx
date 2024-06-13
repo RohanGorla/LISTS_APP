@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     getLists();
-  }, []);
+  });
 
   async function getLists() {
     await axios
@@ -88,10 +88,10 @@ function App() {
     setTodoInput("");
   }
 
-  async function setDone(id, todo_done) {
+  async function setDone(todo, todo_done) {
     await axios
       .post(`${import.meta.env.VITE_BASE_URL}/setdone`, {
-        id: id,
+        todo: todo,
         done: todo_done == "yes" ? "no" : "yes",
       })
       .then((response) => {
@@ -261,9 +261,9 @@ function App() {
               className="show_lists"
               style={lists.length ? null : { display: "none" }}
             >
-              {lists.map((list) => {
+              {lists.map((list, index) => {
                 return (
-                  <div className="list_card" key={list.id}>
+                  <div className="list_card" key={index}>
                     <div className="card-background"></div>
                     <h3 className="list_name">{list.listname}</h3>
                     <div className="list_options">
@@ -308,7 +308,16 @@ function App() {
                 className="add_todo-button"
                 onClick={() => {
                   if (todoInput.length && currentList) {
-                    addTodo();
+                    let exists = false;
+                    for (let i = 0; i < todos.length; i++) {
+                      if (todos[i].todo == todoInput) {
+                        exists = true;
+                        break;
+                      }
+                    }
+                    if (!exists) {
+                      addTodo();
+                    }
                   }
                 }}
               >
@@ -333,9 +342,9 @@ function App() {
               className="show_todos"
               style={todos.length ? null : { display: "none" }}
             >
-              {todos.map((todo) => {
+              {todos.map((todo, index) => {
                 return (
-                  <div className="todo_card" key={todo.id}>
+                  <div className="todo_card" key={index}>
                     <div className="card-background"></div>
                     <p
                       className={
@@ -347,7 +356,7 @@ function App() {
                     <div
                       className="todo_done-button"
                       onClick={() => {
-                        setDone(todo.id, todo.done);
+                        setDone(todo.todo, todo.done);
                       }}
                     >
                       <span className="btn">
