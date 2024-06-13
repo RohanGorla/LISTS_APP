@@ -26,8 +26,6 @@ html {
 }
 
 body {
-    /* background-color: #548FE9; */
-    /* background-color: var(--primary_color); */
     color: var(--accent_color);
     font-family: "Oswald", sans-serif;
 }
@@ -44,9 +42,6 @@ body {
 }
 
 .btn {
-    /* background-color: var(--secondary_color); */
-    /* background-image: linear-gradient(to right top, #e16645, #ea7c3d, #ee9436, #efac32, #ebc435, #e2cf34, #d7db37, #cae63f, #b9e63b, #a6e73a, #91e73b, #79e73e); */
-    /* background-color: #D87E3A; */
     background-image: linear-gradient(to right top, #af0b0b, #be1c0d, #cd290f, #dc3511, #eb4112);
     color: var(--accent_color);
     cursor: pointer;
@@ -55,6 +50,11 @@ body {
     border-radius: 4px;
     border-style:  none;
     padding: .45em 1.3em;
+}
+
+.btn:hover,
+.btn:focus {
+    opacity: .8;
 }
 
 .background {
@@ -84,12 +84,12 @@ body {
 /* LISTS MOBILE */
 
 .lists-mobile {
-    background-color: brown;
+    background-color: rgb(42, 40, 40);
     position: fixed;
     top: 0;
     z-index: 1;
     width: 300px;
-    min-height: 100vh;
+    height: 100vh;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     padding-top: 3em;
@@ -135,17 +135,18 @@ body {
 }
 
 .add_list-mobile {
-    margin-bottom: 1em;
+    margin-bottom: .3em;
 }
 
 .add_list-input-mobile {
-    margin: 1em 0;
-    padding-left: 2.5em;
+    display: flex;
+    justify-content: center;
+    margin: .4em 0 .5em 0;
 }
 
 .add_list-input-mobile input{
-    padding: 1em 4em .5em .5em;
-    border-radius: 7px;
+    padding: .4em .5em .2em .2em;
+    border-radius: 3px;
     border-style: none;
 }
 
@@ -154,47 +155,33 @@ body {
     justify-content: center;
 }
 
-.add_list-button-mobile span{
-    font-size: var(--button_font-size);
-    font-weight: 600;
-    border-radius: 5px;
-    border-style:  none;
-    padding: .5em;
-
-}
-
 .lists-mobile-title {
     text-align: center;
     font-size: var(--app_name_font-size);
 }
 
 .show_lists-mobile {
-    margin: 1em 0;
+    margin: .3em 0;
 }
 
 .list_card {
-    margin-bottom: 1.5em;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: .7em;
+    padding: 1em 0;
+    position: relative;
 }
 
 .list_name-mobile {
     text-align: center;
     font-size: var(--list_name_font-size);
-    margin-bottom: 0.7em;
+    margin-bottom: 0.5em;
 }
 
 .list_options-mobile {
     display: flex;
     justify-content: center;
     gap: 1em;
-}
-
-.select_list-mobile span,
-.delete_list-mobile span {
-    background-color: black;
-    border-radius: 5px;
-    border-style:  none;
-    font-size: var(--button_font-size);
-    padding: .5em;
 }
 
 /* NAV */
@@ -266,9 +253,6 @@ nav {
 }
 
 .todos_header {
-    /* position: relative; */
-    /* padding-bottom: 1em; */
-    /* background-color: blue; */
     width: 80%;
     margin: 0 auto;
 }
@@ -284,9 +268,6 @@ nav {
 }
 
 .todos_count {
-    /* position: absolute;
-    top: 10px;
-    right: 10px; */
     text-align: center;
     font-size: var(--todo_count_font-size);
 }
@@ -296,7 +277,6 @@ nav {
     flex-direction: column;
     align-items: center;
     margin-bottom: .3em;
-    /* gap: 1em; */
 }
 
 .add_todo-input {
@@ -314,14 +294,7 @@ nav {
     justify-content: center;
 }
 
-.show_todos {
-    /* background-color: blue; */
-    /* margin-top: 1em;
-    padding: 1em 0; */
-}
-
 .todo_card {
-    /* background-color: black; */
     position: relative;
     width: 80%;
     margin: 0 auto;
@@ -332,7 +305,6 @@ nav {
 }
 
 .todo_info {
-    /* background-color: blue; */
     width: 70%;
     font-size: var(--todo_font-size);
     color: black;
@@ -349,7 +321,6 @@ nav {
 }
 
 .todo_done-button {
-    /* background-color: green; */
     width: 30%;
 }
 
@@ -371,21 +342,16 @@ nav {
     margin-bottom: .3em;
 }
 
-/* .remove_finished-button span,
-.remove_all-button span {
-
-} */
-
 @media (min-width: 800px) {
     :root {
-        --app_name_font-size: 30px;
-        --main_title_font-size: 60px;
-        --button_font-size: 16px;
+        --app_name_font-size: 25px;
+        --main_title_font-size: 45px;
+        --button_font-size: 12px;
         --button_font-weight: 600;
-        --todo_count_font-size: 15px;
-        --todo_font-size: 23px;
-        --list_name_font-size: 25px;
-        --current_list_font-size: 25px;
+        --todo_count_font-size: 14px;
+        --todo_font-size: 19px;
+        --list_name_font-size: 19px;
+        --current_list_font-size: 22px;
         --primary_color: #FF6D4B;
         --secondary_color: #755A94;
         --accent_color: white;
@@ -419,8 +385,6 @@ nav {
         width: 39%;
         height: fit-content;
         padding: .7em;
-        /* background-color: rgb(46, 45, 45); */
-        /* opacity: .65; */
     }
 
     .add_list {
@@ -443,10 +407,6 @@ nav {
         display: flex;
         justify-content: center;
     }
-
-    /* .add_list-button span {
-
-    } */
 
     .lists-title {
         text-align: center;
@@ -477,16 +437,10 @@ nav {
         gap: 1em;
     }
 
-    /* .select_list span,
-    .delete_list span {
-        
-    } */
-
     .todos {
         width: 60%;
         position: relative;
         height: fit-content;
-        /* background-color: yellow; */
     }
 
     .todos_options {
@@ -516,5 +470,21 @@ nav {
 
     .remove_finished-button {
         margin: 0;
+    }
+}
+
+@media (min-width: 1100px) {
+    :root {
+        --app_name_font-size: 30px;
+        --main_title_font-size: 60px;
+        --button_font-size: 16px;
+        --button_font-weight: 600;
+        --todo_count_font-size: 15px;
+        --todo_font-size: 23px;
+        --list_name_font-size: 25px;
+        --current_list_font-size: 25px;
+        --primary_color: #FF6D4B;
+        --secondary_color: #755A94;
+        --accent_color: white;
     }
 }

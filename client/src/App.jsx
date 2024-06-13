@@ -140,6 +140,7 @@ function App() {
           <span className="cross"></span>
           <span className="cross2"></span>
         </div>
+        <h2 className="lists-mobile-title">ADD NEW LIST</h2>
         <div className="add_list-mobile">
           <div className="add_list-input-mobile">
             <input
@@ -154,10 +155,12 @@ function App() {
           <div
             className="add_list-button-mobile"
             onClick={() => {
-              addList();
+              if (listInput.length) {
+                addList();
+              }
             }}
           >
-            <span className="sb-btn">ADD</span>
+            <span className="btn">ADD</span>
           </div>
         </div>
         <h2 className="lists-mobile-title">MY TODO LISTS</h2>
@@ -165,6 +168,7 @@ function App() {
           {lists.map((list) => {
             return (
               <div className="list_card" key={list.id}>
+                <div className="card-background"></div>
                 <h3 className="list_name-mobile">{list.listname}</h3>
                 <div className="list_options-mobile">
                   <div
@@ -173,7 +177,7 @@ function App() {
                       selectList(list.listname);
                     }}
                   >
-                    <span className="sb-btn">Select</span>
+                    <span className="btn">Select</span>
                   </div>
                   <div
                     className="delete_list-mobile"
@@ -181,7 +185,7 @@ function App() {
                       deleteList(list.listname);
                     }}
                   >
-                    <span className="sb-btn">Delete</span>
+                    <span className="btn">Delete</span>
                   </div>
                 </div>
               </div>
@@ -231,7 +235,9 @@ function App() {
               <div
                 className="add_list-button"
                 onClick={() => {
-                  addList();
+                  if (listInput.length) {
+                    addList();
+                  }
                 }}
               >
                 <span className="btn">ADD</span>
@@ -301,7 +307,9 @@ function App() {
               <div
                 className="add_todo-button"
                 onClick={() => {
-                  addTodo();
+                  if (todoInput.length && currentList) {
+                    addTodo();
+                  }
                 }}
               >
                 <span className="btn">ADD</span>
@@ -333,7 +341,6 @@ function App() {
                       className={
                         todo.done == "yes" ? "todo_info done" : "todo_info"
                       }
-                      // className="todo_info"
                     >
                       <span>{todo.todo}</span>
                     </p>
