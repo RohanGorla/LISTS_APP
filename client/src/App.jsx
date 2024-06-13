@@ -15,7 +15,8 @@ function App() {
 
   useEffect(() => {
     getLists();
-  });
+    console.log("render")
+  }, []);
 
   async function getLists() {
     await axios
@@ -165,9 +166,9 @@ function App() {
         </div>
         <h2 className="lists-mobile-title">MY TODO LISTS</h2>
         <div className="show_lists-mobile">
-          {lists.map((list) => {
+          {lists.map((list, index) => {
             return (
-              <div className="list_card" key={list.id}>
+              <div className="list_card" key={index}>
                 <div className="card-background"></div>
                 <h3 className="list_name-mobile">{list.listname}</h3>
                 <div className="list_options-mobile">
