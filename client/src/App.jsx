@@ -39,9 +39,9 @@ function App() {
     setListInput("");
   }
 
-  async function selectList(listname) {
+  async function selectList(listname, listid) {
     await axios
-      .post(`${import.meta.env.VITE_BASE_URL}/getlist`, { listname: listname })
+      .post(`${import.meta.env.VITE_BASE_URL}/getlist`, { listid: listid })
       .then((response) => {
         setTodos(response.data);
         let left = 0;
@@ -166,16 +166,16 @@ function App() {
         </div>
         <h2 className="lists-mobile-title">MY TODO LISTS</h2>
         <div className="show_lists-mobile">
-          {lists.map((list, index) => {
+          {lists.map((list) => {
             return (
-              <div className="list_card" key={index}>
+              <div className="list_card" key={list.id}>
                 <div className="card-background"></div>
                 <h3 className="list_name-mobile">{list.listname}</h3>
                 <div className="list_options-mobile">
                   <div
                     className="select_list-mobile"
                     onClick={() => {
-                      selectList(list.listname);
+                      selectList(list.listname, list.id);
                     }}
                   >
                     <span className="btn">Select</span>
@@ -271,7 +271,7 @@ function App() {
                       <div
                         className="select_list"
                         onClick={() => {
-                          selectList(list.listname);
+                          selectList(list.listname, list.id);
                         }}
                       >
                         <span className="btn">Select</span>

@@ -23,7 +23,7 @@ db.connect((err) => {
 });
 
 app.get("/", (req, res) => {
-  db.query("select listname from lists", (err, data) => {
+  db.query("select * from lists", (err, data) => {
     if (err) return res.send(err);
     return res.send(data);
   });
@@ -37,8 +37,8 @@ app.post("/addlist", (req, res) => {
 
 app.post("/getlist", (req, res) => {
   db.query(
-    "select todo, done from todos where listname = ?",
-    [req.body.listname],
+    "select todo, done from todos where listid = ?",
+    [req.body.listid],
     (err, data) => {
       if (err) return res.send(err);
       return res.send(data);
