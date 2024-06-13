@@ -10,6 +10,7 @@ function App() {
   const [todoInput, setTodoInput] = useState("");
   const [listInput, setListInput] = useState("");
   const [currentList, setCurrentList] = useState("");
+  const [currentListId, setCurrentListId] = useState(0);
   const [show, setShow] = useState(false);
   const [left, setLeft] = useState(0);
 
@@ -22,6 +23,7 @@ function App() {
     await axios
       .get(`${import.meta.env.VITE_BASE_URL}/`)
       .then((response) => {
+        console.log(response);
         setLists(response.data);
       })
       .catch((err) => {
@@ -43,6 +45,7 @@ function App() {
     await axios
       .post(`${import.meta.env.VITE_BASE_URL}/getlist`, { listid: listid })
       .then((response) => {
+        console.log(response);
         setTodos(response.data);
         let left = 0;
         response.data.forEach((todo) => {
@@ -52,21 +55,22 @@ function App() {
         });
         setLeft(left);
         setCurrentList(listname);
+        setCurrentListId(listid);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  async function deleteList(listname) {
+  async function deleteList(listid) {
     await axios
       .delete(`${import.meta.env.VITE_BASE_URL}/deletelist`, {
-        data: { listname },
+        data: { listid },
       })
       .then((response) => {
         getLists();
-        if (currentList == listname) {
-          selectList("");
+        if (currentListId == listid) {
+          selectList("", 0);
         }
       })
       .catch((err) => {
@@ -77,11 +81,11 @@ function App() {
   async function addTodo() {
     await axios
       .post(`${import.meta.env.VITE_BASE_URL}/addtodo`, {
-        listname: currentList,
+        listid: currentListId,
         todo: todoInput,
       })
       .then((response) => {
-        selectList(currentList);
+        selectList(currentList, currentListId);
       })
       .catch((err) => {
         console.log(err);
@@ -96,33 +100,33 @@ function App() {
         done: todo_done == "yes" ? "no" : "yes",
       })
       .then((response) => {
-        selectList(currentList);
+        selectList(currentList, currentListId);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  async function deleteDone(listname) {
+  async function deleteDone(listid) {
     await axios
       .delete(`${import.meta.env.VITE_BASE_URL}/deletedone`, {
-        data: { listname },
+        data: { listid },
       })
       .then((response) => {
-        selectList(currentList);
+        selectList(currentList, currentListId);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  async function deleteAll(listname) {
+  async function deleteAll(listid) {
     await axios
       .delete(`${import.meta.env.VITE_BASE_URL}/deleteall`, {
-        data: { listname },
+        data: { listid },
       })
       .then((response) => {
-        selectList(currentList);
+        selectList(currentList, currentListId);
       })
       .catch((err) => {
         console.log(err);
@@ -183,7 +187,7 @@ function App() {
                   <div
                     className="delete_list-mobile"
                     onClick={() => {
-                      deleteList(list.listname);
+                      deleteList(list.id);
                     }}
                   >
                     <span className="btn">Delete</span>
@@ -262,9 +266,9 @@ function App() {
               className="show_lists"
               style={lists.length ? null : { display: "none" }}
             >
-              {lists.map((list, index) => {
+              {lists.map((list) => {
                 return (
-                  <div className="list_card" key={index}>
+                  <div className="list_card" key={list.id}>
                     <div className="card-background"></div>
                     <h3 className="list_name">{list.listname}</h3>
                     <div className="list_options">
@@ -279,7 +283,7 @@ function App() {
                       <div
                         className="delete_list"
                         onClick={() => {
-                          deleteList(list.listname);
+                          deleteList(list.id);
                         }}
                       >
                         <span className="btn">Delete</span>
@@ -375,7 +379,7 @@ function App() {
               <div
                 className="remove_finished-button"
                 onClick={() => {
-                  deleteDone(currentList);
+                  deleteDone(currentListId);
                 }}
               >
                 <span className="btn">REMOVE FINISHED TODOS</span>
@@ -383,7 +387,7 @@ function App() {
               <div
                 className="remove_all-button"
                 onClick={() => {
-                  deleteAll(currentList);
+                  deleteAll(currentListId);
                 }}
               >
                 <span className="btn">REMOVE ALL TODOS</span>

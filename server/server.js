@@ -47,14 +47,14 @@ app.post("/getlist", (req, res) => {
 });
 
 app.delete("/deletelist", (req, res) => {
-  db.query("delete from lists where listname = ?", [req.body.listname]);
-  db.query("delete from todos where listname = ?", [req.body.listname]);
+  db.query("delete from lists where id = ?", [req.body.listid]);
+  db.query("delete from todos where listid = ?", [req.body.listid]);
   res.send("deleted");
 });
 
 app.post("/addtodo", (req, res) => {
-  let values = [[req.body.listname, req.body.todo, 'no']];
-  db.query("insert into todos (listname, todo, done) values ?", [values]);
+  let values = [[req.body.listid, req.body.todo, 'no']];
+  db.query("insert into todos (listid, todo, done) values ?", [values]);
   res.send("added");
 });
 
@@ -67,12 +67,12 @@ app.post("/setdone", (req, res) => {
 });
 
 app.delete("/deletedone", (req, res)=>{
-    db.query("delete from todos where listname = ? AND done = 'yes'", [req.body.listname]);
+    db.query("delete from todos where listid = ? AND done = 'yes'", [req.body.listid]);
     res.send("deleted");
 })
 
 app.delete("/deleteall", (req, res) => {
-  db.query("delete from todos where listname = ?", [req.body.listname]);
+  db.query("delete from todos where listid = ?", [req.body.listid]);
   res.send("deleted");
 });
 
