@@ -21,7 +21,6 @@ function App() {
     await axios
       .get(`${import.meta.env.VITE_BASE_URL}/`)
       .then((response) => {
-        console.log(response);
         setLists(response.data);
       })
       .catch((err) => {
@@ -43,7 +42,6 @@ function App() {
     await axios
       .post(`${import.meta.env.VITE_BASE_URL}/getlist`, { listid: listid })
       .then((response) => {
-        console.log(response);
         setTodos(response.data);
         let left = 0;
         response.data.forEach((todo) => {

@@ -25,7 +25,6 @@ db.connect((err) => {
 app.get("/", (req, res) => {
   db.query("select * from lists", (err, data) => {
     if (err) {
-      console.log(err);
       return res.send(err);
     }
     return res.send(data);
