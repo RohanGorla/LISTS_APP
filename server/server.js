@@ -24,7 +24,10 @@ db.connect((err) => {
 
 app.get("/", (req, res) => {
   db.query("select * from lists", (err, data) => {
-    if (err) return res.send(err);
+    if (err) {
+      console.log(err);
+      return res.send(err);
+    }
     return res.send(data);
   });
 });
@@ -53,7 +56,7 @@ app.delete("/deletelist", (req, res) => {
 });
 
 app.post("/addtodo", (req, res) => {
-  let values = [[req.body.listid, req.body.todo, 'no']];
+  let values = [[req.body.listid, req.body.todo, "no"]];
   db.query("insert into todos (listid, todo, done) values ?", [values]);
   res.send("added");
 });
@@ -66,10 +69,12 @@ app.post("/setdone", (req, res) => {
   res.send("done");
 });
 
-app.delete("/deletedone", (req, res)=>{
-    db.query("delete from todos where listid = ? AND done = 'yes'", [req.body.listid]);
-    res.send("deleted");
-})
+app.delete("/deletedone", (req, res) => {
+  db.query("delete from todos where listid = ? AND done = 'yes'", [
+    req.body.listid,
+  ]);
+  res.send("deleted");
+});
 
 app.delete("/deleteall", (req, res) => {
   db.query("delete from todos where listid = ?", [req.body.listid]);
