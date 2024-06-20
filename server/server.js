@@ -244,9 +244,9 @@ app.post("/addtodo", (req, res) => {
 });
 
 app.post("/setdone", (req, res) => {
-  db.query("update todos set ? where todo = ?", [
+  db.query("update todos set ? where listid = ?", [
     { done: req.body.done },
-    req.body.todo,
+    req.body.todoid,
   ]);
   res.send("done");
 });

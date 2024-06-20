@@ -92,10 +92,10 @@ function Todos({ logout, setgive, currentuser }) {
     setTodoInput("");
   }
 
-  async function setDone(todo, todo_done) {
+  async function setDone(todo_id, todo_done) {
     await axios
       .post(`${import.meta.env.VITE_BASE_URL}/setdone`, {
-        todo: todo,
+        todoid: todo_id,
         done: todo_done == "yes" ? "no" : "yes",
       })
       .then((response) => {
@@ -369,7 +369,7 @@ function Todos({ logout, setgive, currentuser }) {
                     <div
                       className="todo_done-button"
                       onClick={() => {
-                        setDone(todo.todo, todo.done);
+                        setDone(todo.listid, todo.done);
                       }}
                     >
                       <span className="btn">
