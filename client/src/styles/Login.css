@@ -1,0 +1,43 @@
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    background-color: black;
+    padding: 2em 2em;
+}
+
+.error-message {
+    color: red;
+}
+
+label {
+    font-weight: 700;
+    font-size: 1.3em;
+}
+
+.email-input, .password-input {
+    padding: .5em 0;
+}
+
+#username, #password {
+    padding: 1em 6em .5em .5em;
+    margin: .5em 0;
+}
+
+.signup-btns {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.signup-btns button {
+    padding: .7em 1em;
+    font-weight: 900;
+    color: black;
+}
