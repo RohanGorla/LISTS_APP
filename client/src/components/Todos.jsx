@@ -369,7 +369,7 @@ function Todos({ logout, setgive, currentuser }) {
                     <div
                       className="todo_done-button"
                       onClick={() => {
-                        setDone(todo.listid, todo.done);
+                        setDone(todo.id, todo.done);
                       }}
                     >
                       <span className="btn">

@@ -214,7 +214,7 @@ app.post("/addlist", (req, res) => {
 
 app.post("/getlist", (req, res) => {
   db.query(
-    "select todo, done from todos where listid = ?",
+    "select * from todos where listid = ?",
     [req.body.listid],
     (err, data) => {
       if (err) return res.send(err);
@@ -224,16 +224,24 @@ app.post("/getlist", (req, res) => {
 });
 
 app.delete("/deletelist", (req, res) => {
-  db.query("delete from todoLists where id = ? and listuser = ?", [req.body.listid, req.body.User], (err, data)=>{
-    if (err) {
-      console.log(err);
+  db.query(
+    "delete from todoLists where id = ? and listuser = ?",
+    [req.body.listid, req.body.User],
+    (err, data) => {
+      if (err) {
+        console.log(err);
+      }
     }
-  });
-  db.query("delete from todos where listid = ?", [req.body.listid], (err, data)=>{
-    if (err) {
-      console.log(err);
+  );
+  db.query(
+    "delete from todos where listid = ?",
+    [req.body.listid],
+    (err, data) => {
+      if (err) {
+        console.log(err);
+      }
     }
-  });
+  );
   res.send("deleted");
 });
 
@@ -244,10 +252,15 @@ app.post("/addtodo", (req, res) => {
 });
 
 app.post("/setdone", (req, res) => {
-  db.query("update todos set ? where listid = ?", [
-    { done: req.body.done },
-    req.body.todoid,
-  ]);
+  console.log(req.body.todoid);
+  db.query(
+    "update todos set ? where id = ?",
+    [{ done: req.body.done }, req.body.todoid],
+    (err, data) => {
+      if (err) console.log(err);
+      console.log("this is data", data);
+    }
+  );
   res.send("done");
 });
 
